@@ -77,8 +77,12 @@ public class Bedroom {
         }
     }
 
-    public int placesInRoom(){
-        return this.capacity - this.guests.size();
+    public boolean isRoomAvailable(){
+        if(this.guests.size() == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

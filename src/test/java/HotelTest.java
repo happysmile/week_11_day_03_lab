@@ -27,12 +27,21 @@ public class HotelTest {
 
     @Test
     public void canAddGuestToRooms(){
-
+        assertEquals(false, room1.isGuestIn(steve));
+        assertEquals(80, steve.getMoney());
+        assertEquals(0, hotelDelLuna.getTill());
+        hotelDelLuna.checkInGuestToBedroom(room1, steve, 2);
+        assertEquals(true, room1.isGuestIn(steve));
+        assertEquals(40, steve.getMoney());
+        assertEquals(40, hotelDelLuna.getTill());
     }
 
     @Test
     public void canRemoveGuestsFromRooms(){
-
+        hotelDelLuna.checkInGuestToBedroom(room1, steve, 2);
+        assertEquals(true, room1.isGuestIn(steve));
+        hotelDelLuna.checkOutGuestFromBedroom(room1, steve);
+        assertEquals(false, room1.isGuestIn(steve));
     }
 
 

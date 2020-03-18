@@ -49,7 +49,7 @@ public class Hotel {
 
     public void checkInGuestToBedroom(Bedroom bedroom, Guest guest, int nights){
         int bill = bedroom.getBill(nights);
-        if( this.hasGuestEnoughMoney(bill, guest) && (bedroom.placesInRoom()>0) && (bedroom.isGuestIn(guest) == false) ){
+        if( this.hasGuestEnoughMoney(bill, guest) && (bedroom.isRoomAvailable()) && (bedroom.isGuestIn(guest) == false) ){
             bedroom.addGuest(guest);
             guest.payMoney(bill);
             this.getPaid(bill);
@@ -64,7 +64,7 @@ public class Hotel {
 
     public void checkInGuestToConferenceRoom(ConferenceRoom conferenceRoom, Guest guest, int hours){
         int bill = conferenceRoom.getBill(hours);
-        if( this.hasGuestEnoughMoney(bill, guest) && (conferenceRoom.placesInRoom()>0) && (conferenceRoom.isGuestIn(guest) == false) ) {
+        if( this.hasGuestEnoughMoney(bill, guest) && (conferenceRoom.isRoomAvailable()) && (conferenceRoom.isGuestIn(guest) == false) ) {
             conferenceRoom.addGuest(guest);
             guest.payMoney(bill);
             this.getPaid(bill);

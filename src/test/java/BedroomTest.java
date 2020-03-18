@@ -73,11 +73,12 @@ public class BedroomTest {
     }
 
     @Test
-    public void checksIfSpace(){
-        room1.addGuest(niall);
-        assertEquals(1, room1.placesInRoom());
+    public void checksIfAvailable(){
+        System.out.println(room1.getGuests());
+        System.out.println(room1.getGuests().size());
+        assertEquals(true, room1.isRoomAvailable());
         room1.addGuest(steve);
-        assertEquals(0, room1.placesInRoom());
+        assertEquals(false, room1.isRoomAvailable());
     }
 
 }
