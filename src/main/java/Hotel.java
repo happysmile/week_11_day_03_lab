@@ -19,37 +19,47 @@ public class Hotel {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ArrayList<Bedroom> getBedrooms() {
         return this.bedrooms;
-    }
-
-    public void setBedrooms(ArrayList<Bedroom> bedrooms) {
-        this.bedrooms = bedrooms;
     }
 
     public ArrayList<ConferenceRoom> getConferenceRooms() {
         return conferenceRooms;
     }
 
-    public void setConferenceRooms(ArrayList<ConferenceRoom> conferenceRooms) {
-        this.conferenceRooms = conferenceRooms;
+
+    public void addBedroom(Bedroom bedroom){
+        this.bedrooms.add(bedroom);
+    }
+
+    public void addConferenceRoom(ConferenceRoom conferenceRoom){
+        this.conferenceRooms.add(conferenceRoom);
+    }
+
+    public Bedroom findBedroom(Bedroom bedroom) {
+        if(this.bedrooms.contains(bedroom)){
+            return bedroom;
+        } else {
+            return null;
+        }
+    }
+
+    public ConferenceRoom findConferenceRoom(ConferenceRoom conferenceRoom) {
+        if(this.conferenceRooms.contains(conferenceRoom)){
+            return conferenceRoom;
+        } else {
+            return null;
+        }
     }
 
     public int getTill() {
         return this.till;
     }
 
-    public void setTill(int till) {
-        this.till = till;
-    }
-
     public void checkInGuestToBedroom(Bedroom bedroom, Guest guest, int nights){
         int bill = bedroom.getBill(nights);
-        if( this.hasGuestEnoughMoney(bill, guest) && (bedroom.isRoomAvailable()) && (bedroom.isGuestIn(guest) == false) ){
+        Bedroom foundBedroom = this.findBedroom(bedroom);
+        if( this.hasGuestEnoughMoney(bill, guest) && (foundBedroom!= null) && (bedroom.isRoomAvailable()) && (bedroom.isGuestIn(guest) == false) ){
             bedroom.addGuest(guest);
             guest.payMoney(bill);
             this.getPaid(bill);
@@ -64,7 +74,8 @@ public class Hotel {
 
     public void checkInGuestToConferenceRoom(ConferenceRoom conferenceRoom, Guest guest, int hours){
         int bill = conferenceRoom.getBill(hours);
-        if( this.hasGuestEnoughMoney(bill, guest) && (conferenceRoom.isRoomAvailable()) && (conferenceRoom.isGuestIn(guest) == false) ) {
+        ConferenceRoom foundConferenceRoom = this.findConferenceRoom(conferenceRoom);
+        if( this.hasGuestEnoughMoney(bill, guest) && ( foundConferenceRoom != null ) && (conferenceRoom.isRoomAvailable()) && (conferenceRoom.isGuestIn(guest) == false) ) {
             conferenceRoom.addGuest(guest);
             guest.payMoney(bill);
             this.getPaid(bill);

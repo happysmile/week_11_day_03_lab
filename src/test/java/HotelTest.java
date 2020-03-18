@@ -26,7 +26,16 @@ public class HotelTest {
     }
 
     @Test
+    public void canAddRooms(){
+        assertEquals(0, hotelDelLuna.getBedrooms().size());
+        hotelDelLuna.addBedroom(room1);
+        assertEquals(1, hotelDelLuna.getBedrooms().size());
+    }
+
+
+    @Test
     public void canAddGuestToRooms(){
+        hotelDelLuna.addBedroom(room1);
         assertEquals(false, room1.isGuestIn(steve));
         assertEquals(80, steve.getMoney());
         assertEquals(0, hotelDelLuna.getTill());
@@ -34,10 +43,13 @@ public class HotelTest {
         assertEquals(true, room1.isGuestIn(steve));
         assertEquals(40, steve.getMoney());
         assertEquals(40, hotelDelLuna.getTill());
+        hotelDelLuna.checkInGuestToBedroom(room1, niall, 2);
+        assertEquals(false, room1.isGuestIn(niall));
     }
 
     @Test
     public void canRemoveGuestsFromRooms(){
+        hotelDelLuna.addBedroom(room1);
         hotelDelLuna.checkInGuestToBedroom(room1, steve, 2);
         assertEquals(true, room1.isGuestIn(steve));
         hotelDelLuna.checkOutGuestFromBedroom(room1, steve);
